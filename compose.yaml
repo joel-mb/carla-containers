@@ -1,0 +1,149 @@
+services:
+
+  carla-development-ue5-22.04:
+    image: carla-development:ue5-22.04
+    build:
+      context: ue5-development
+      dockerfile: Dockerfile
+      args:
+        # NOTE: Complete with your host user UID:GID
+        #     HOST_UID (id -u)
+        #     HOST_GID (id -g)
+        HOST_UID: 1000
+        HOST_GID: 1000
+    runtime: nvidia
+    network_mode: host
+    volumes:
+      # NOTE: Specify the location of the UE5 and CARLA source code here. 
+      - ${UE5_ROOT}:/workspace/unreal-engine
+      - ${CARLA_UE5_ROOT}:/workspace/carla
+      - ./ue5-development/scripts:/workspace/scripts
+      - carla-development-ue5:/home/carla
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      CARLA_UNREAL_ENGINE_PATH: /workspace/unreal-engine
+      CARLA_ROOT: /workspace/carla
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+  carla-development-ue4-22.04:
+    image: carla-development:ue4-22.04
+    build:
+      context: ue4-development
+      dockerfile: Dockerfile
+      args:
+        # NOTE: Complete with your host user UID:GID
+        #     HOST_UID (id -u)
+        #     HOST_GID (id -g)
+        HOST_UID: 1000
+        HOST_GID: 1000
+        UBUNTU_DISTRO: 22.04
+    runtime: nvidia
+    network_mode: host
+    volumes:
+      # NOTE: Specify the location of the UE5 and CARLA source code here. 
+      - ${UE4_ROOT}:/workspace/unreal-engine
+      - ${CARLA_UE4_ROOT}:/workspace/carla
+      - carla-development-ue4:/home/carla
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      UE4_ROOT: /workspace/unreal-engine
+      CARLA_ROOT: /workspace/carla
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+  carla-runtime-18.04:
+    image: carla-runtime:18.04 
+    build:
+      context: runtime
+      dockerfile: Dockerfile
+      args:
+        # NOTE: Complete with your host user UID:GID
+        #     HOST_UID (id -u)
+        #     HOST_GID (id -g)
+        HOST_UID: 1000
+        HOST_GID: 1000
+        UBUNTU_DISTRO: 18.04
+    runtime: nvidia
+    network_mode: host
+    volumes:
+      - ${CARLA_ROOT}:/home/carla
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+  carla-runtime-20.04:
+    image: carla-runtime:20.04 
+    build:
+      context: runtime
+      dockerfile: Dockerfile
+      args:
+        # NOTE: Complete with your host user UID:GID
+        #     HOST_UID (id -u)
+        #     HOST_GID (id -g)
+        HOST_UID: 1000
+        HOST_GID: 1000
+        UBUNTU_DISTRO: 20.04
+    runtime: nvidia
+    network_mode: host
+    volumes:
+      - ${CARLA_ROOT}:/home/carla
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+  carla-runtime-22.04:
+    image: carla-runtime:22.04 
+    build:
+      context: runtime
+      dockerfile: Dockerfile
+      args:
+        # NOTE: Complete with your host user UID:GID
+        #     HOST_UID (id -u)
+        #     HOST_GID (id -g)
+        HOST_UID: 1000
+        HOST_GID: 1000
+        UBUNTU_DISTRO: 22.04
+    runtime: nvidia
+    network_mode: host
+    volumes:
+      - ${CARLA_ROOT}:/home/carla
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+  carla-runtime-24.04:
+    image: carla-runtime:24.04 
+    build:
+      context: runtime
+      dockerfile: Dockerfile
+      args:
+        # NOTE: Complete with your host user UID:GID
+        #     HOST_UID (id -u)
+        #     HOST_GID (id -g)
+        HOST_UID: 1000
+        HOST_GID: 1000
+        UBUNTU_DISTRO: 24.04
+    runtime: nvidia
+    network_mode: host
+    volumes:
+      - ${CARLA_ROOT}:/home/carla
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+volumes:
+  carla-development-ue5:
+    name: carla-development-ue5
+  carla-development-ue4:
+    name: carla-development-ue4
